@@ -48,11 +48,13 @@
             opacity: 0;
             transform: translateX(100%);
             transition: all 0.8s ease;
+            pointer-events: none;
         }
         
         .page.active {
             opacity: 1;
             transform: translateX(0);
+            pointer-events: all;
         }
         
         h1 {
@@ -326,10 +328,7 @@
                 </div>
             </div>
             <div class="navigation-section">
-                <div class="btn-container">
-                    <button class="btn-secondary" onclick="showPage(1)">Назад</button>
-                    <button class="btn" onclick="showPage(3)">Далее</button>
-                </div>
+ 
                 <div class="page-indicator">
                     <div class="dot"></div>
                     <div class="dot active"></div>
@@ -337,33 +336,7 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Страница 3: Душевный текст -->
-        <div class="page" id="page3">
-            <div class="content-wrapper">
-                <h2>От всего сердца...</h2>
-                <div class="heart">💖</div>
-                <div class="details">
-                    <p style="text-align: left; line-height: 1.8;">
-                        Моя дорогая Лилия,<br><br>
-                        Каждый раз, когда я думаю о тебе, моё сердце наполняется теплом и нежностью. Ты - тот лучик солнца, который освещает даже самый пасмурный день.<br><br>
-                        Это свидание для меня - не просто встреча. Это возможность провести время с самым удивительным человеком, почувствовать ту самую магию, которая возникает, когда мы вместе.<br><br>
-                        С нетерпением жду нашей встречи! ❤️
-                    </p>
-                </div>
-            </div>
-            <div class="navigation-section">
-                <div class="btn-container">
-                    <button class="btn-secondary" onclick="showPage(2)">Назад</button>
-                    <button class="btn" onclick="showPage(1)">В начало</button>
-                </div>
-                <div class="page-indicator">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot active"></div>
-                </div>
-            </div>
-        </div>
+           
         
         <div class="flowers"></div>
     </div>
@@ -393,10 +366,13 @@
             // Обновить индикаторы страниц
             document.querySelectorAll('.dot').forEach((dot, index) => {
                 dot.classList.remove('active');
-                if (index === pageNumber - 1) {
-                    dot.classList.add('active');
-                }
             });
+            
+            // Активировать соответствующий индикатор
+            const dots = document.querySelectorAll('.dot');
+            if (dots.length >= pageNumber) {
+                dots[pageNumber - 1].classList.add('active');
+            }
             
             currentPage = pageNumber;
         }
