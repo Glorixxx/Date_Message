@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Открытка для свидания</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .card {
+            width: 90%;
+            max-width: 400px;
+            height: 80vh;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.5s ease;
+        }
+        
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            text-align: center;
+        }
+        
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .page.next {
+            transform: translateX(100%);
+        }
+        
+        .page.prev {
+            transform: translateX(-100%);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            font-size: 2rem;
+            margin: 10px 0;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .details {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        
+        .btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 30px;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        .flowers {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ff6b6b" fill-opacity="0.2" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="page active" id="page1">
+            <h1>ОТ Льва</h1>
+            <div class="heart">❤</div>
+            <h1>Кому Лилии</h1>
+            <p>Нажми "Далее", чтобы открыть приглашение</p>
+            <button class="btn" onclick="nextPage()">Далее</button>
+        </div>
+        
+        <div class="page" id="page2">
+            <h2>Приглашение на свидание</h2>
+            <div class="heart">💕</div>
+            <p>Я хочу пригласить тебя на особенное свидание!</p>
+            <div class="details">
+                <p><strong>Место:</strong> [Впиши сюда место]</p>
+                <p><strong>Дата:</strong> [Впиши сюда дату]</p>
+                <p><strong>Время:</strong> [Впиши сюда время]</p>
+            </div>
+            <button class="btn" onclick="nextPage()">Далее</button>
+        </div>
+        
+        <div class="page" id="page3">
+            <h2>С нетерпением жду нашей встречи!</h2>
+            <div class="heart">💖</div>
+            <p>Надеюсь, ты примешь моё приглашение. Обещаю, будет очень романтично и незабываемо!</p>
+            <p>С любовью, твой Лев ❤️</p>
+            <button class="btn" onclick="prevPage()">Назад</button>
+        </div>
+        
+        <div class="navigation">
+            <button class="nav-btn" onclick="prevPage()">←</button>
+            <button class="nav-btn" onclick="nextPage()">→</button>
+        </div>
+        
+        <div class="flowers"></div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 3;
+        
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                document.getElementById(`page${currentPage}`).classList.add('prev');
+                currentPage++;
+                document.getElementById(`page${currentPage}`).classList.remove('next');
+                document.getElementById(`page${currentPage}`).classList.add('active');
+            }
+        }
+        
+        function prevPage() {
+            if (currentPage > 1) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                document.getElementById(`page${currentPage}`).classList.add('next');
+                currentPage--;
+                document.getElementById(`page${currentPage}`).classList.remove('prev');
+                document.getElementById(`page${currentPage}`).classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
